@@ -14,7 +14,7 @@ import services.BusService
 class Application @Inject()(cc: ControllerComponents, busService: BusService) (implicit system: ActorSystem, mat: Materializer) extends AbstractController(cc) {
 
   def index = Action { implicit request =>
-    Ok(views.html.index(SharedMessages.itWorks))
+    Ok(views.html.index())
   }
 
   def ws(): WebSocket = WebSocket.accept[String, String] { implicit request =>

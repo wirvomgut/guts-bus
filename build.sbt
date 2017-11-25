@@ -4,6 +4,7 @@ lazy val server = (project in file("server")).settings(commonSettings).settings(
   scalaJSProjects := Seq(client),
   pipelineStages in Assets := Seq(scalaJSPipeline),
   pipelineStages := Seq(digest, gzip),
+  buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion),
   // triggers scalaJSPipeline when using compile or continuous compilation
   compile in Compile := ((compile in Compile) dependsOn scalaJSPipeline).value,
   libraryDependencies ++= Seq(
@@ -16,7 +17,7 @@ lazy val server = (project in file("server")).settings(commonSettings).settings(
     specs2 % Test,
     ws
   ),
-).enablePlugins(PlayScala).dependsOn(sharedJvm)
+).enablePlugins(PlayScala, BuildInfoPlugin).dependsOn(sharedJvm)
 
 lazy val client = (project in file("client")).settings(commonSettings).settings(
   scalaJSUseMainModuleInitializer := true,

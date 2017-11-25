@@ -24,6 +24,8 @@ class MyWebSocketActor(out: ActorRef, busService: BusService) extends Actor {
         case BusConnect =>
           println("Client connected")
           busService.actorsToNotify += self
+          val lastMessages = busService.lastMessages.filter(_ != null)
+          if(lastMessages.nonEmpty) out ! write(MultipleMessages(lastMessages))
           out ! write(SimpleMessage("Du sitzt jetzt im Bus. Wir vom Gut wünschen eine gute Fahrt!"))
         case t: TurnOn =>
           busService.knxToolOn(t.addr)
