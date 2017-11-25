@@ -1,7 +1,7 @@
 val upickleV = "0.4.4"
 
 lazy val server = (project in file("server")).settings(commonSettings).settings(
-  version := "0.0.1",
+  version := "0.0.2-SNAPSHOT",
   scalaJSProjects := Seq(client),
   pipelineStages in Assets := Seq(scalaJSPipeline),
   pipelineStages := Seq(digest, gzip),
